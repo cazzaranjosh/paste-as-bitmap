@@ -1,0 +1,31 @@
+{
+  "manifest_version": 3,
+  "name": "Paste As Bitmap",
+  "version": "3.0.0",
+  "description": "Pastes images from another site into the destination as resized, compressed JPEGs uploaded to the destination's own storage, instead of as a fragile URL reference.",
+  "permissions": ["storage"],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_start",
+      "all_frames": true
+    },
+    {
+      "matches": ["<all_urls>"],
+      "js": ["page.js"],
+      "run_at": "document_start",
+      "all_frames": true,
+      "world": "MAIN"
+    }
+  ],
+  "options_page": "options.html",
+  "action": {
+    "default_title": "Paste As Bitmap",
+    "default_popup": "popup.html"
+  }
+}
