@@ -59,8 +59,23 @@
       const m = html.match(/<img[^>]+src\s*=\s*["']([^"']+)["']/i);
       if (m) return m[1].replace(/&amp;/g, "&").replace(/&quot;/g, '"').replace(/&#39;/g, "'");
     }
-    if (text && /^https?:\/\/\S+$/i.test(text.trim())) return text.trim();
+    if (text) {
+      const t = text.trim();
+      // A bare URL is only treated as an image if its path looks like an
+      // image file. Otherwise it's a normal link paste — leave it alone so
+      // it pastes as text like the user intended.
+      if (/^https?:\/\/\S+$/i.test(t) && looksLikeImageUrl(t)) return t;
+    }
     return null;
+  }
+
+  function looksLikeImageUrl(u) {
+    try {
+      const path = new URL(u).pathname.toLowerCase();
+      return /\.(png|jpe?g|gif|webp|avif|bmp|ico|svgz?|tiff?)$/.test(path);
+    } catch {
+      return false;
+    }
   }
 
   // --- image processing config (tweak here) -------------------------------

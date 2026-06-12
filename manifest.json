@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Paste As Bitmap",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Pastes images from another site into the destination as resized, compressed JPEGs uploaded to the destination's own storage, instead of as a fragile URL reference.",
   "permissions": ["storage"],
   "host_permissions": ["<all_urls>"],
